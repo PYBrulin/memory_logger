@@ -1,0 +1,15 @@
+[flake8]
+count=True
+ignore = C901,E203,E231,E702,W503
+max-complexity=10
+max-line-length=127
+exclude =
+    .venv,
+    .git,
+    .vscode,
+    .github,
+    .pytest_cache,
+    .mypy_cache,
+    __pycache__
+show-source=True
+statistics=True

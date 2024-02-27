@@ -1,0 +1,43 @@
+[project]
+name = "memory_logger"
+authors = [
+    {name = "Pierre-Yves BRULIN", email = "40915900+PYBrulin@users.noreply.github.com"},
+]
+description = "Multirotor propulsion chain simulation tool"
+readme = "README.md"
+requires-python = ">=3.7"
+keywords = ["cpu usage", "memory usage"]
+license = {text = "BSD-3-Clause"}
+classifiers = [
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dynamic = ["version"]
+dependencies = [
+    "pandas",
+    "psutil",
+    "signal_plotter@git+https://github.com/PYBrulin/signal_plotter#egg=main",
+]
+
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+version_file = "memory_logger/_version.py"
+
+[tool.setuptools]
+packages = ["memory_logger"]
+
+[tool.isort]
+known_first_party = "memory_logger"
+atomic = true
+line_length = 127
+multi_line_output = 3
+use_parentheses = true
+include_trailing_comma = true
+force_grid_wrap = 0
+
+[tool.black]
+skip-string-normalization = true
+line-length = 127
