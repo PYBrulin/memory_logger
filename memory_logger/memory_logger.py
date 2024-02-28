@@ -9,6 +9,7 @@ import time
 import pandas
 import psutil
 
+from memory_logger.config import Config
 from memory_logger.plot import plot_memory_usage
 
 
@@ -101,6 +102,8 @@ def main() -> None:
         print("Usage: python memory_usage.py <command>")
         sys.exit(1)
 
+    config = Config()
+
     command = sys.argv[1:]
 
     mem_logger = MemoryLogger(command=command)
@@ -111,12 +114,20 @@ def main() -> None:
     pid = process.pid
 
     # Log the memory usage
+    time_cpu = time.time()
     while process.is_running():  # ! Note: Ensure that the process can exit by itself (No GUI blocking the process, etc.)
         mem_logger.trace_memory_usage(pid)
-        time.sleep(1)
+
+        # Try to enforce the rate.  Although this is only useful for low rate
+        # configurations, the rate at which the memory usage is logged is
+        # limited by the rate at which the memory is collected, the number of
+        # processes/children processes being traced, and the rate at which the
+        # data is written to disk. Optimizations are definitely possible.
+        time.sleep(max(0, config.rate - (time.time() - time_cpu)))
 
     # Plot the memory usage
-    plot_memory_usage(mem_logger.foldername)
+    if config.show_gui:
+        plot_memory_usage(mem_logger.foldername)
 
 
 if __name__ == "__main__":

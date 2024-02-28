@@ -1,6 +1,7 @@
 exports*/
 *.log*
 *.pgf
+memory_logger.config
 
 # Cloud 9 temp files
 *.~*
