@@ -14,7 +14,7 @@ def plot_memory_usage(output_foldername: str) -> None:
 
     # Read the command from the command.txt file
     if "command.txt" in files:
-        with open(os.path.join(output_foldername, "command.txt"), "r") as f:
+        with open(os.path.join(output_foldername, "command.txt")) as f:
             command = f.read()
     else:
         command = None
